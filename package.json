@@ -1,0 +1,26 @@
+{
+  "name": "FundHoldings",
+  "version": "0.0.1",
+  "description": "fund holdings management tool",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "keywords": [],
+  "author": "cyao",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^11.2.1",
+    "electron-builder": "^22.9.1"
+  },
+  "build": {
+    "productName": "基金持仓管理工具",
+    "appId": "top.cyao",
+    "win": {
+      "target": "zip"
+    }
+  }
+}

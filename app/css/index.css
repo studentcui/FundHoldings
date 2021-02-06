@@ -1,0 +1,49 @@
+ul {
+    clear: both;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+li {
+    float: left;
+    display: block;
+    width: 145px;
+    height: 15px;
+    padding: 2px;
+    margin: 0;
+    border-right: #000 1px solid;
+    border-bottom: #000 1px solid;
+    line-height: 16px;
+    color: 000;
+}
+a {
+    text-decoration: none;
+}
+#records > ul > li {
+    height: 30px;
+}
+#head {
+    position: fixed;
+    height: 70px;
+    width: 100%;
+    top: 0;
+    background-color: aliceblue;
+}
+#foot {
+    position: fixed;
+    bottom: 0;
+    background-color: aliceblue;
+}
+#records {
+    margin-top: 75px;
+    margin-bottom: 60px;
+}
+#listFilter {
+    width: 20px;
+}
+#daysFilter {
+    width: 30px;
+}
+.odd > li {
+    background-color: cornsilk;
+}

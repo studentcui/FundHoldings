@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>基金购买记录管理系统</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" type="text/css" href="./css/index.css" />
+</head>
+
+<body style="background: white;">
+    <div id="head">
+        基金名称:<input id="name"> <button onclick="addFundName();">添加</button><br>
+        基金名称：<select id="list"></select><button onclick="deleteFundName();">删除</button>份数:<input style="width: 70px;"
+            id="quantity"><button onclick="purchase();">购买</button>购买日期:<input style="width: 70px;" id="date"><br>
+        <ul>
+            <li>基金名称<select id="listFilter" onchange="loadRecords();"></select></li>
+            <li>份额</li>
+            <li>购买日期</li>
+            <li>已购天数<input id="daysFilter" oninput="loadRecords();"></li>
+            <li>操作</li>
+        </ul>
+    </div>
+    <div id="records">
+
+    </div>
+    <div id="foot">
+        <ul>
+            <li>总份额:</li>
+            <li><span id="quantitySum"></span></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script src="./script/index.js"></script>
+</body>
+
+</html>
