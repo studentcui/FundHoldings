@@ -136,7 +136,9 @@ window.onload = function () {
     }
     loadSelect();
     loadRecords();
-    let dt = new Date();
+    let dtToday = new Date();
+    dtToday.setDate(dtToday.getDate()-1);
+    let dt = new Date(dtToday);
     document.getElementById("date").value = dt.getFullYear() + "" + PrefixZero(dt.getMonth() + 1, 2) + "" + PrefixZero(dt.getDate(), 2);
     console.log(fundNames);
 }
