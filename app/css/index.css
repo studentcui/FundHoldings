@@ -4,6 +4,9 @@ ul {
     margin: 0;
     list-style: none;
 }
+ul :nth-child(2) {
+    text-align: right;
+}
 li {
     float: left;
     display: block;

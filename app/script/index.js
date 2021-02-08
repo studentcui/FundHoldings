@@ -64,6 +64,7 @@ function purchase() {
     }
     fs.writeFileSync(records, JSON.stringify(result), 'utf8');
     quantity.value = "";
+    loadListFilter();
     loadRecords();
 }
 
@@ -96,8 +97,8 @@ function loadRecords() {
             let result = JSON.parse(recordsFileText);
             let cnt = 1;
             for (i of result) {
-                if ((listFilter.value == "" && daysFilter == "") || (listFilter.value == i.name && daysFilter.value == "") 
-                    || (listFilter.value == "" && daysFilter.value <= purchaseDays(i.date)) 
+                if ((listFilter.value == "全部" && daysFilter == "") || (listFilter.value == i.name && daysFilter.value == "") 
+                    || (listFilter.value == "全部" && daysFilter.value <= purchaseDays(i.date)) 
                     || (listFilter.value == i.name && daysFilter.value <= purchaseDays(i.date))) {
                         quantitySum += parseFloat(i.quantity);
                         let clazz = cnt++ % 2 == 1 ? ' class="odd"' : '';
@@ -112,22 +113,47 @@ function loadRecords() {
     recordsDiv.innerHTML = recordsList;
 }
 
+//加载基金名称过滤下拉框
+function loadListFilter() {
+    let listFilter = document.getElementById("listFilter");
+    listFilter.innerHTML = "";
+    listFilter.options.add(new Option("全部", "全部"));
+    
+    let recordsFileText = fs.readFileSync(records, 'utf8');
+    if (recordsFileText) {
+        let result = JSON.parse(recordsFileText);
+        let set = new Set();
+        for (i of result) {
+            set.add(i.name);
+        }
+        for (i of set) {
+            listFilter.options.add(new Option(i, i));
+        }
+    }
+}
+
 //加载基金名称下拉框
 function loadSelect() {
     let list = document.getElementById("list");
-    let listFilter = document.getElementById("listFilter");
+    
     if (fs.existsSync(fundNames)) {
         let listData = fs.readFileSync(fundNames, 'utf8').split(",");
         list.innerHTML = "";
-        listFilter.innerHTML = "";
-        listFilter.options.add(new Option("", ""));
         for (i of listData) {
             if (i) {
                 list.options.add(new Option(i, i));
-                listFilter.options.add(new Option(i, i));
             }
         }
     }
+}
+
+//加载购买日期输入框文本为昨天
+function loadYesterday() {
+    let dtToday = new Date();
+    dtToday.setDate(dtToday.getDate()-1);
+    let dt = new Date(dtToday);
+    document.getElementById("date").value = dt.getFullYear() 
+        + "" + PrefixZero(dt.getMonth() + 1, 2) + "" + PrefixZero(dt.getDate(), 2);
 }
 
 window.onload = function () {
@@ -135,12 +161,9 @@ window.onload = function () {
         fs.mkdirSync(dataDir);
     }
     loadSelect();
+    loadListFilter();
     loadRecords();
-    let dtToday = new Date();
-    dtToday.setDate(dtToday.getDate()-1);
-    let dt = new Date(dtToday);
-    document.getElementById("date").value = dt.getFullYear() + "" + PrefixZero(dt.getMonth() + 1, 2) + "" + PrefixZero(dt.getDate(), 2);
-    console.log(fundNames);
+    loadYesterday();
 }
 
 //生成uuid
